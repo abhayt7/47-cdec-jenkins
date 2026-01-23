@@ -13,7 +13,10 @@ pipeline {
         }
          stage('tesr-stage') {
             steps {
-                echo 'code test sucessfully'
+                sh '''  mvn sonar:sonar \\
+                        -Dsonar.projectKey=new-studentapp \\
+                        -Dsonar.host.url=http://18.141.203.37:9000 \\
+                        -Dsonar.login=1bdbff4bf01b412d86dd2e9aaa23cff101b5c927'''
             }
         }
          stage('deploy-stage') {
