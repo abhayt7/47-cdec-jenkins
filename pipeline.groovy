@@ -11,30 +11,26 @@ pipeline {
                 sh '/opt/maven/bin/mvn clean package'
             }
         }
-         stage('tesr-stage') {
+         stage('test-stage') {
             steps {
-                withSonarQubeEnv(installationName: 'sonar',credentialsId: 'sonar-cred') {
-                 sh ' /opt/maven/bin/mvn clean verify sonar:sonar '
-            }
-                // sh '''  /opt/maven/bin/mvn clean verify sonar:sonar \\
-                //         -Dsonar.projectKey=new-studentapp \\
-                //         -Dsonar.host.url=http://172.31.21.29:9000 \\
-                //         -Dsonar.login=1bdbff4bf01b412d86dd2e9aaa23cff101b5c927'''
+                withSonarQubeEnv(installationName: 'sonar',credentialsId: 'sonar-cred-1') {
+                      sh '/opt/maven/bin/mvn sonar:sonar'
+                  }
+                // sh '''/opt/maven/bin/mvn sonar:sonar \\
+                //      -Dsonar.projectKey=studentapp \\
+                //      -Dsonar.host.url=http://13.53.200.180:9000 \\
+                //      -Dsonar.login=dfb451556e35114bf31b5798423e18c16fe839f2'''
+  
             }
         }
          stage('Quality_Gate') {
             steps {
-                timeout(10) {
+                timeout(3) {
    
             }
                 waitForQualityGate true
             }
         }
-          // stage('Artifatory-stage') {
-           // steps {
-             //  sh 'aws s3 cp  target/studentapp-2.2-SNAPSHOT.war  s3://mybuck-00759746/'
-           // }
-       // }
 
          stage('deploy-stage') {
             steps {
