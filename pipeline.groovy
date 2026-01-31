@@ -5,7 +5,7 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/Anilbamnote/student-ui-app.git'
+                git branch: 'main', url: 'https://github.com/abhayt7/student-ui-app.git'
             }
         }
 
