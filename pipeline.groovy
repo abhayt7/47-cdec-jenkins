@@ -35,6 +35,12 @@ pipeline {
             }
         }
 
+         stage('Artifatory-stage') {
+            steps {
+               sh 'aws s3 cp  target/studentapp-2.2-SNAPSHOT.war  s3://anurag-1234/'
+            }
+        }
+
         stage('Deploy') {
             steps {
                 echo "Deployment successful"
