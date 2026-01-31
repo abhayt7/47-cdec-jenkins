@@ -1,11 +1,6 @@
 pipeline {
     agent { label 'slave' }
 
-    tools {
-        maven 'maven3'
-        jdk 'java17'
-    }
-
     stages {
 
         stage('Checkout') {
@@ -24,7 +19,7 @@ pipeline {
             steps {
                 withSonarQubeEnv('sonar') {
                     sh '''
-                    mvn clean verify sonar:sonar \
+                    /opt/maven/bin/mvn clean verify sonar:sonar \
                       -Dsonar.projectKey=student-ui-app \
                       -Dsonar.projectName=student-ui-app
                     '''
@@ -42,7 +37,7 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                echo "Application deployed successfully"
+                echo "Deployment successful"
             }
         }
     }
